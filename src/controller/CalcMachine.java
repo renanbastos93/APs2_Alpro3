@@ -19,7 +19,6 @@ public class CalcMachine {
 		SpreadsheetModel m = new SpreadsheetModel() {
 			@Override
 			public void setFormula(String cell, String formula) {
-                            
                             cells.append(cell);
                             formulas.setExpressao(formula);
                             avaliador.append(formulas.getExpressao());
@@ -34,7 +33,7 @@ public class CalcMachine {
 
 			@Override
 			public String getFormula(String cell) {
-				return "="+cell;
+				return ""+cell;
 			}
 		};
 		

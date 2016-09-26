@@ -27,20 +27,33 @@ public class AvaliadorExpressao {
         this.expressao = expressao;
     }
 
-//    public static void main(String[] args) {
-//		System.out.println("res:"+newFormula("9+7*9"));
-//	}
-    public String newFormula(String formula) {
+    public static void main(String[] args) {
+        System.out.println("res:" + newFormula("159+3+7"));
+    }
 
+    public static String newFormula(String formula) {
+
+        Pilha<String> operator = new Pilha<>();
         String resposta = "";
         String operadores = "+-/*";
         String ultimo;
-
+        int cont = 0;
+        /* 
+            Falta tratar vezes e dividir
+        */
         for (int i = 0; i < formula.length(); i++) {
             ultimo = Character.toString(formula.charAt(i));
-
+            cont = i;
             if (!operadores.contains(ultimo)) {
-                resposta += " " + ultimo;
+                while (Character.isDigit(formula.charAt(cont))) {
+                    i = cont;
+                    resposta += " " + formula.charAt(cont);
+                    if(cont == formula.length()-1){
+                        break;
+                    }
+                    cont++;
+                }
+
             } else if (operator.isEmpty()) {
                 operator.push(ultimo);
             } else {
@@ -53,8 +66,6 @@ public class AvaliadorExpressao {
     }
 
     public double calcFormula(String formula) {
-        System.out.println("Entoru aquiiii " + formula);
-        System.out.println("testeeeee: " + newFormula(formula));
         Scanner entrada = new Scanner(newFormula(formula)); //2 5 * 4 -
         while (entrada.hasNext()) {
             if (entrada.hasNextDouble()) {
