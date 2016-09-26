@@ -64,11 +64,6 @@ public class ListaEncadeada<T> implements Iterable<T> {
 			}
 		}
 
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
 	}
 
 	private No<T> head;
@@ -147,4 +142,5 @@ public class ListaEncadeada<T> implements Iterable<T> {
 		}
 		
 	}
+        
 }

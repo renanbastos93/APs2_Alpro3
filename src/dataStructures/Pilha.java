@@ -26,7 +26,9 @@ public class Pilha <T>{
 		T topo = peek();
 		pilha.removeLast();
 		return topo;
-	}
+	}   
+        
+        
 }
 
 
