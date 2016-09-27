@@ -28,25 +28,53 @@ public class AvaliadorExpressao {
     }
 
     public static void main(String[] args) {
-        System.out.println("res:" + newFormula("159+3+7*1/3+1"));
+        String res = "1-2+3*4/5+1"; // "1 2 + 3 2 / + 4 -
+        // 3*2*(5-1) == 5 1 - 2 * 3 *
+        System.out.println("res:" + newFormula(res));
+//        System.out.println("calc:" + calcFormula(newFormula(res)));
+
     }
 
+    private static boolean eOperador(String op) {
+        String oper = "-+/*";
+        if (oper.contains(op)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static int prioridadeOperador(String op) {
+        String oper = "-+*/";
+        switch (op) {
+            case "+":
+            case "-":
+                return 1;
+            case "*":
+            case "/":
+                return 2;
+            case "^":
+                return 3;
+            case "(":
+                return 0;
+        }
+        return -1;
+    }
+
+    ;
+        
     public static String newFormula(String formula) {
 
         Pilha<String> operator = new Pilha<>();
-
         String resposta = "";
-        String operadores = "+-*/";
-        String multDiv = "*/";
-        String ultimo;
+        String ultimo = "";
+        String retirado = "";
+
         int cont = 0;
-        /* 
-            Falta tratar vezes e dividir
-         */
         for (int i = 0; i < formula.length(); i++) {
+            System.out.println(retirado);
             ultimo = Character.toString(formula.charAt(i));
             cont = i;
-            if (!operadores.contains(ultimo)) {
+            if (!eOperador(ultimo)) {
                 while (Character.isDigit(formula.charAt(cont))) {
                     i = cont;
                     resposta += formula.charAt(cont);
@@ -55,20 +83,24 @@ public class AvaliadorExpressao {
                     }
                     cont++;
                 }
-                resposta += " ";
             } else if (operator.isEmpty()) {
+                System.out.println(ultimo);
                 operator.push(ultimo);
+                resposta += retirado.trim();
             } else {
-                resposta += operator.pop() + " ";
-                operator.push(ultimo);
+                retirado = operator.pop();
+                resposta += retirado.trim();
             }
         }
         resposta += operator.pop();
         return resposta.trim();
+
     }
 
-    public double calcFormula(String formula) {
-        Scanner entrada = new Scanner("2 5 /"); //2 5 * 4 -
+    public static double calcFormula(String formula) {
+
+        Pilha<Double> pilha = new Pilha<>();
+        Scanner entrada = new Scanner(formula); //2 5 * 4 -
         while (entrada.hasNext()) {
             if (entrada.hasNextDouble()) {
                 pilha.push(entrada.nextDouble());
