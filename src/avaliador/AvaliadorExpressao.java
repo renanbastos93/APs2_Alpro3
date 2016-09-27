@@ -28,45 +28,47 @@ public class AvaliadorExpressao {
     }
 
     public static void main(String[] args) {
-        System.out.println("res:" + newFormula("159+3+7"));
+        System.out.println("res:" + newFormula("159+3+7*1/3+1"));
     }
 
     public static String newFormula(String formula) {
 
         Pilha<String> operator = new Pilha<>();
+
         String resposta = "";
-        String operadores = "+-/*";
+        String operadores = "+-*/";
+        String multDiv = "*/";
         String ultimo;
         int cont = 0;
         /* 
             Falta tratar vezes e dividir
-        */
+         */
         for (int i = 0; i < formula.length(); i++) {
             ultimo = Character.toString(formula.charAt(i));
             cont = i;
             if (!operadores.contains(ultimo)) {
                 while (Character.isDigit(formula.charAt(cont))) {
                     i = cont;
-                    resposta += " " + formula.charAt(cont);
-                    if(cont == formula.length()-1){
+                    resposta += formula.charAt(cont);
+                    if (cont == formula.length() - 1) {
                         break;
                     }
                     cont++;
                 }
-
+                resposta += " ";
             } else if (operator.isEmpty()) {
                 operator.push(ultimo);
             } else {
-                resposta += " " + operator.pop();
+                resposta += operator.pop() + " ";
                 operator.push(ultimo);
             }
         }
-        resposta += " " + operator.pop();
+        resposta += operator.pop();
         return resposta.trim();
     }
 
     public double calcFormula(String formula) {
-        Scanner entrada = new Scanner(newFormula(formula)); //2 5 * 4 -
+        Scanner entrada = new Scanner("2 5 /"); //2 5 * 4 -
         while (entrada.hasNext()) {
             if (entrada.hasNextDouble()) {
                 pilha.push(entrada.nextDouble());

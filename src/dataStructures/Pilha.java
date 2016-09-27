@@ -26,7 +26,11 @@ public class Pilha <T>{
 		T topo = peek();
 		pilha.removeLast();
 		return topo;
-	}   
+	}  
+        
+        public void addFirst(T valor){
+            pilha.addFirst(valor);
+        }
         
         
 }
